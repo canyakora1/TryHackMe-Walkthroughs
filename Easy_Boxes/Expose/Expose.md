@@ -93,17 +93,17 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ``Found to admin pages:`` /admin_101 already had a preconfigured username. Great!!
 
 BurpSuite is our go-to tool to intercept the login request
-[BurpSuite](/Easy_Boxes/Expose/img/1.png)
+![BurpSuite](/Easy_Boxes/Expose/img/1.png)
 
 Lets forward the request to the ``Repeater`` and send the request. Looking at the ``response`` we can see an ``SQL query`` which displays all the information for the user : hacker@root.thm.
 
 An SQL query in the response could possibly mean an ``SQL injection attack``.
-[SQL Injection attack](/Easy_Boxes/Expose/img/2.png)
+![SQL Injection attack](/Easy_Boxes/Expose/img/2.png)
 
 There is a hint about using sqlmap. So let's copy the request part of the Repeater to a file on my deskop:  ``~/Desktop/request``
 
 run: ``sqlmap -r ~/Desktop/request``
-[Burp-suite](/Easy_Boxes/Expose/img/11.png)
+![Burp-suite](/Easy_Boxes/Expose/img/11.png)
 
 ``Answer if prompted for:``
 “are you sure that you want to continue with further target testing? [Y/n]” ``Y``
@@ -133,19 +133,19 @@ Let's focus our attention on the ``expose database``, it might just be the datab
 run: ``sqlmap -r ~/Desktop/request -D expose --tables --dump``
 The command above would dump all the tables from the expose database
 
-[SQLMAP-RESULT1](/Easy_Boxes/Expose/img/3.png)
+![SQLMAP-RESULT1](/Easy_Boxes/Expose/img/3.png)
 
 It just dumped everything right in our faces, one password in plain text, one encrypted password, that has already been decrypted for us and a ``HINT: // ONLY ACCESSIBLE THROUGH USERNAME STARTING WITH Z``.
 
 ``Side note:`` Let also use [Crackstation](https://crackstation.net) to crack the encrypted password
-[CrackStation](/Easy_Boxes/Expose/img/4.png)
+![CrackStation](/Easy_Boxes/Expose/img/4.png)
 
 Lets take this information back to the web server and login
 ``Username:`` hacker@root.thm
 ``Password:`` VeryDifficultPassword!!#@#@!#!@#1231
 
 Boom we are in!!
-[Admin Access](/Easy_Boxes/Expose/img/7.png)
+![Admin Access](/Easy_Boxes/Expose/img/7.png)
 
 Not much info here.
 Let's go check the other information we got from the sqlmap scan
@@ -155,7 +155,7 @@ I see a config table with some values in it.
 - a url - /file1010111/index.php and a password
 
 Let's go check it out. Put in the password
-[Admin Access](/Easy_Boxes/Expose/img/7.png)
+![Admin Access](/Easy_Boxes/Expose/img/7.png)
 
 nothing much, let me inspect the source
 I could a HINT, in the below right of the source code. it says ``"Try file or view as GET parameters"``
@@ -164,18 +164,18 @@ Let's try a including a few file parameters values and see the outcome. Since it
 
 ``http://<ip address:1337/file1010111/index.php?file=/etc/passwd>``
 
-[etc/passwd file](/Easy_Boxes/Expose/img/8.png)
+![etc/passwd file](/Easy_Boxes/Expose/img/8.png)
 
 And we were able to print out the passwd file. Make a mentally note of the name of user and their respective path. Nothing much to do anyways.
 
 Let's try the second value of our Config table
 
 http://10.10.222.102:1337/upload-cv00101011/index.php
-[Z-password](/Easy_Boxes/Expose/img/9.png)
+![Z-password](/Easy_Boxes/Expose/img/9.png)
 
 Hint: Name that starts with "Z". Lets go back to our passwd file
 Name: ``zeamkish``
-[upload](/Easy_Boxes/Expose/img/10.png)
+![upload](/Easy_Boxes/Expose/img/10.png)
 Looking at the page source we can see that there is a file upload validation script in place. Looking at it closely it seems like it only checks for the extension, if the extension is either jpg or png. No other front-end validation is in place. We could possibly bypass this validation and upload a reverse shell (unless there is a backend validation in place).
 
 Let’s intercept this request in Burp and change the file extension to see if we can bypass the file extension validation and upload a reverse shell.
