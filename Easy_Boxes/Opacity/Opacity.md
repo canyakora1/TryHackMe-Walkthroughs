@@ -74,7 +74,7 @@ Progress: 6419 / 87665 (7.32%)                                               ^C
 I was able to identify two sub domains, ``/css and /cloud``, very interesting
 
 **Let's take a look at /cloud sub domain**
-![[Screenshot 2024-01-13 at 11.50.41 PM.png]]
+![/cloud](/Easy_Boxes/Opacity/img/1.png)
 
 File uploader. veery interesting. Let us see whether we can upload a reverse shell and if it is vulnerability, then we have a shell on the machine. 
 [Pentest-Monkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
@@ -123,7 +123,11 @@ We see the local.txt but we cannot access it.
 
 - I found this interesting file in /opt
 
-![opacity9](https://aymanzerda-sudotime.github.io/images/opacity9.png)
+```r
+$ cd opt
+$ ls
+dataset.kdbx
+```
 
 > A KDBX file is a password database created by KeePass Password Safe.
 
@@ -179,7 +183,7 @@ I will use [https://app.keeweb.info/](https://app.keeweb.info/). Just upload the
 
 found: ``Cl0udP4ss40p4city#8700``
 
-![[Screenshot 2024-01-14 at 12.31.51 AM.png]]
+![keeweb](/Easy_Boxes/Opacity/img/2.png)
 
 Let us now log in as the sysadmin using SSH
 We are in :......
@@ -220,9 +224,7 @@ sysadmin@opacity:~$
 
 - Open a web server on your local machine and then download the executable to the target machine
 
-![opacity18](https://aymanzerda-sudotime.github.io/images/opacity18.png)
-
-![opacity19](https://aymanzerda-sudotime.github.io/images/opacity19.png)
+![python webserver](/Easy_Boxes/Opacity/img/3.png)
 
 - After you run it, you will see a file called _script.php_ is running
 
@@ -230,7 +232,7 @@ sysadmin@opacity:~$
 
 - Let’s read this file
 
-![opacity21](https://aymanzerda-sudotime.github.io/images/opacity21.png)
+![opacity19](/Easy_Boxes/Opacity/img/4.png)
 
 - The script requires a file called backup.inc.php this means it will call this file , then it backups all the files in /home/sysadmin/scripts to /var/backups/backup.zip
     
@@ -258,11 +260,11 @@ drwxr-xr-x 3 root     root  4096 Jul  8  2022 ..
 
 - You should notice that the sysadmin user have all the permissions to the _lib_ folder
 
-![opacity23](https://aymanzerda-sudotime.github.io/images/opacity23.png)
+![opacity19](/Easy_Boxes/Opacity/img/5.png)
 
 - So the idea here is we’re going to copy _backup.inc.php_ to our home directory, now we can modify the file.
 
-![opacity24](https://aymanzerda-sudotime.github.io/images/opacity24.png)
+![opacity19](/Easy_Boxes/Opacity/img/6.png)
 
 - Let’s add a php reverse shell
 
