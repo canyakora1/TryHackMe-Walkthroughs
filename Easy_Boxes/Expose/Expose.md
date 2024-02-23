@@ -144,12 +144,12 @@ Lets take this information back to the web server and login
 ``Username:`` hacker@root.thm
 ``Password:`` VeryDifficultPassword!!#@#@!#!@#1231
 
-Boom we are in!!
+Boom we are in.
 ![Admin Access](/Easy_Boxes/Expose/img/7.png)
 
 Not much info here.
 Let's go check the other information we got from the sqlmap scan
-[SQLMAP-RESULT3](/Easy_Boxes/Expose/img/6.png)
+![SQLMAP-RESULT3](/Easy_Boxes/Expose/img/6.png)
 
 I see a config table with some values in it.
 - a url - /file1010111/index.php and a password
