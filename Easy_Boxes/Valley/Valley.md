@@ -202,7 +202,7 @@ After listing the directory, I noticed 3 pcapng file. These are network packet c
 
 Let go over each pcap file, but the ``"siemHYYP2.pcapng"`` got my attention.
 Let us first filter for http and check for "x-www-form-urlencoded" from there we might get something juicy
-![[Screenshot 2024-01-21 at 9.23.18 PM.png]]
+![wireshark](/Easy_Boxes/Valley/img/1.png)
 
 We obtained a ``username``:valleyDev and ``password``:ph0t0s1234
 
