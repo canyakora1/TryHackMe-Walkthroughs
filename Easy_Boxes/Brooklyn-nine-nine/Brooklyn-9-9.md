@@ -61,7 +61,7 @@ We found something:
 </body>
 </html>
 ```
-Steganography? What is that?
+Stenography? What is that?
 _Steganography is the technique of hiding data within an ordinary, nonsecret file or message to avoid detection; the hidden data is then extracted at its destination. Steganography use can be combined with encryption as an extra step for hiding or protecting data._
 Something to think about going forth: 
 
